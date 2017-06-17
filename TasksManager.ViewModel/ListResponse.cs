@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace TasksManager.ViewModel.Responses
+namespace TasksManager.ViewModel
 {
-    public class ProjectsListResponse
+    public class ListResponse<TItem> where TItem : class
     {
-        public ICollection<ProjectResponse> Items { get; set; }
+        public ICollection<TItem> Items { get; set; }
         public string Sort { get; set; }
         public int Page { get; set; }
         public int PageSize { get; set; }

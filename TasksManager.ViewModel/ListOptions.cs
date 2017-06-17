@@ -80,7 +80,7 @@ namespace TasksManager.ViewModel
 
         public override string ToString()
         {
-            return "{0} from {1} sorted by {2}".FormatWith(Count, Offset, Sort);
+            return $"{Count} from {GetOffset()} sorted by {Sort}";
         }
     }
 

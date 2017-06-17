@@ -12,7 +12,7 @@ namespace TasksManager.Controllers
     public class ProjectsController : Controller
     {
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(ProjectsListResponse))]
+        [ProducesResponseType(200, Type = typeof(ListResponse<ProjectResponse>))]
         public Task<IActionResult> GetProjectsListAsync(ProjectFilter filter, ListOptions options)
         {
             throw new NotImplementedException();
