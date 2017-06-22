@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
+using TasksManager.DataAccess.DbImplementation.Queries;
+using TasksManager.DataAccess.Queries;
+using TasksManager.Db;
+
 
 namespace TasksManager
 {
@@ -24,6 +29,13 @@ namespace TasksManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TasksContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Db")));
+
+            services
+                .AddScoped<IProjectQuery, ProjectQuery>()
+                .AddScoped<IProjectsListQuery, ProjectsListQuery>()
+                ;
+
             // Add framework services.
             services.AddMvc();
 
@@ -35,8 +47,10 @@ namespace TasksManager
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, TasksContext context)
         {
+            context.Database.Migrate();
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

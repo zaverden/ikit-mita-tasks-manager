@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TasksManager.DataAccess\TasksManager.DataAccess.csproj" />
+    <ProjectReference Include="..\TasksManager.Db\TasksManager.Db.csproj" />
+  </ItemGroup>
+
+</Project>

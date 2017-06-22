@@ -18,6 +18,8 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TasksManager.DataAccess.DbImplementation\TasksManager.DataAccess.DbImplementation.csproj" />
+    <ProjectReference Include="..\TasksManager.DataAccess\TasksManager.DataAccess.csproj" />
     <ProjectReference Include="..\TasksManager.ViewModel\TasksManager.ViewModel.csproj" />
   </ItemGroup>
 
