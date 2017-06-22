@@ -1,4 +1,4 @@
-﻿namespace TasksManager.ViewModel
+﻿namespace TasksManager.Entities
 {
     public enum TaskStatus
     {
