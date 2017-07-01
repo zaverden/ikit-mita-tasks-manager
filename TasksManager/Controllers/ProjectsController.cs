@@ -5,6 +5,8 @@ using TasksManager.ViewModel;
 using TasksManager.ViewModel.Filters;
 using TasksManager.ViewModel.Requests;
 using TasksManager.ViewModel.Responses;
+using TasksManager.DataAccess.Queries;
+using TasksManager.DataAccess.Commands;
 
 namespace TasksManager.Controllers
 {
@@ -13,25 +15,34 @@ namespace TasksManager.Controllers
     {
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(ListResponse<ProjectResponse>))]
-        public Task<IActionResult> GetProjectsListAsync(ProjectFilter filter, ListOptions options)
+        public async Task<IActionResult> GetProjectsListAsync(ProjectFilter filter, ListOptions options, [FromServices]IProjectsListQuery query)
         {
-            throw new NotImplementedException();
+            var response = await query.RunAsync(filter, options);
+            return Ok(response);
         }
 
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(ProjectResponse))]
         [ProducesResponseType(400)]
-        public Task<IActionResult> CreateProjectAsync([FromBody]CreateProjectRequest request)
+        public async Task<IActionResult> CreateProjectAsync([FromBody]CreateProjectRequest request, [FromServices]ICreateProjectCommand command)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            ProjectResponse response = await command.ExecuteAsync(request);
+            return Ok(response);
         }
 
         [HttpGet("{projectId}")]
         [ProducesResponseType(200, Type = typeof(ProjectResponse))]
         [ProducesResponseType(404)]
-        public Task<IActionResult> GetProjectAsync(int projectId)
+        public async Task<IActionResult> GetProjectAsync(int projectId, [FromServices]IProjectQuery query)
         {
-            throw new NotImplementedException();
+            ProjectResponse response = await query.RunAsync(projectId);
+            return response == null
+                ? (IActionResult)NotFound()
+                : Ok(response);
         }
 
         [HttpPut("{projectId}")]

@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
+using TasksManager.DataAccess.Commands;
+using TasksManager.DataAccess.DbImplementation.Commands;
+using TasksManager.DataAccess.DbImplementation.Queries;
+using TasksManager.DataAccess.Queries;
 
 namespace TasksManager
 {
@@ -24,6 +29,9 @@ namespace TasksManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Db.TasksContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("TasksContext")));
+            RegisterQueriesAndCommands(services);
             // Add framework services.
             services.AddMvc();
 
@@ -35,8 +43,10 @@ namespace TasksManager
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Db.TasksContext context)
         {
+            context.Database.Migrate();
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -50,6 +60,15 @@ namespace TasksManager
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+        }
+
+        private void RegisterQueriesAndCommands(IServiceCollection services)
+        {
+            services
+                .AddScoped<IProjectQuery, ProjectQuery>()
+
+                .AddScoped<ICreateProjectCommand, CreateProjectCommand>()
+                ;
         }
     }
 }

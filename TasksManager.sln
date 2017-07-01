@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksManager.DataAccess", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksManager.ViewModel", "TasksManager.ViewModel\TasksManager.ViewModel.csproj", "{23022B74-5852-4BBC-91FD-95044F734DB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksManager.DataAccess.DbImplementation", "TasksManager.DataAccess.DbImplementation\TasksManager.DataAccess.DbImplementation.csproj", "{53F11DD2-F45B-4DF5-AEA3-5B3D172891D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{23022B74-5852-4BBC-91FD-95044F734DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23022B74-5852-4BBC-91FD-95044F734DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23022B74-5852-4BBC-91FD-95044F734DB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53F11DD2-F45B-4DF5-AEA3-5B3D172891D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53F11DD2-F45B-4DF5-AEA3-5B3D172891D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53F11DD2-F45B-4DF5-AEA3-5B3D172891D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53F11DD2-F45B-4DF5-AEA3-5B3D172891D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
